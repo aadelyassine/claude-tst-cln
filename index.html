@@ -193,7 +193,7 @@ footer a:hover{color:var(--g)}
 <section id="contact"><div class="w two" style="align-items:start">
 <div><div class="eb" data-t="ct">Contact</div><h2 data-t="cth">Vraag een gratis offerte aan.</h2>
 <p class="sub">📍 Straat 1, 2000 Stad<br>📞 +32 000 00 00 00<br>✉️ info@novacleaning.be</p></div>
-<div class="f"><input id="fn" data-p="pn" placeholder="Naam" autocomplete="name" required><input id="fe" type="email" data-p="pe" placeholder="E-mail" autocomplete="email" required><input id="ft" type="tel" data-p="pt" placeholder="Telefoonnummer" autocomplete="tel" inputmode="tel"><textarea id="fm" rows="4" data-p="pm" placeholder="Bericht" required></textarea><input id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px"><button class="btn" id="send" data-t="sb">Verstuur</button><p id="st" role="status" style="margin:0;color:#e5484d"></p></div>
+<div class="f"><input id="fn" data-p="pn" placeholder="Naam" autocomplete="name" required><input id="fe" type="email" data-p="pe" placeholder="E-mail" autocomplete="email" required><input id="ft" type="tel" data-p="pt" placeholder="Telefoonnummer" autocomplete="tel" inputmode="tel"><textarea id="fm" rows="4" data-p="pm" placeholder="Bericht" required></textarea><input type="checkbox" id="hp" name="botcheck" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0"><button class="btn" id="send" data-t="sb">Verstuur</button><p id="st" role="status" style="margin:0;color:#e5484d"></p></div>
 </div></section>
 
 <a class="wa" href="https://wa.me/32000000000" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
@@ -220,7 +220,7 @@ document.querySelectorAll(".lang button").forEach(function(b){b.onclick=function
 var WEB3FORMS_KEY="ee97793f-1dd2-4a54-8161-26dcc406f2bf"; /* plak hier uw Web3Forms Access Key (web3forms.com) */
 document.getElementById("send").onclick=function(){var L=T[document.documentElement.lang];
 if(!fn.value.trim()||!/\S+@\S+\.\S+/.test(fe.value)||!fm.value.trim()){st.style.color="#e5484d";st.textContent=L.er;return}
-if(hp.value)return;
+if(hp.checked)return;
 if(!WEB3FORMS_KEY){st.style.color="#e5484d";st.textContent=L.nf+" (access key ontbreekt)";return}
 send.disabled=true;st.style.color="var(--mu)";st.textContent=L.sg;
 fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:"Nieuwe offerteaanvraag via NOVA Cleaning website",from_name:"NOVA Cleaning website",name:fn.value,email:fe.value,phone:ft.value,message:fm.value})})
