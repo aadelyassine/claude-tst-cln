@@ -221,12 +221,12 @@ var WEB3FORMS_KEY="ee97793f-1dd2-4a54-8161-26dcc406f2bf"; /* plak hier uw Web3Fo
 document.getElementById("send").onclick=function(){var L=T[document.documentElement.lang];
 if(!fn.value.trim()||!/\S+@\S+\.\S+/.test(fe.value)||!fm.value.trim()){st.style.color="#e5484d";st.textContent=L.er;return}
 if(hp.value)return;
-if(!WEB3FORMS_KEY){st.style.color="#e5484d";st.textContent=L.nf;return}
+if(!WEB3FORMS_KEY){st.style.color="#e5484d";st.textContent=L.nf+" (access key ontbreekt)";return}
 send.disabled=true;st.style.color="var(--mu)";st.textContent=L.sg;
 fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:"Nieuwe offerteaanvraag via NOVA Cleaning website",from_name:"NOVA Cleaning website",name:fn.value,email:fe.value,phone:ft.value,message:fm.value})})
 .then(function(r){return r.json()})
-.then(function(d){if(!d.success)throw 0;st.style.color="var(--g)";st.textContent=L.ok;fn.value=fe.value=ft.value=fm.value=""})
-.catch(function(){st.style.color="#e5484d";st.textContent=L.nf}).then(function(){send.disabled=false})};
+.then(function(d){if(!d.success)throw d.message||"error";st.style.color="var(--g)";st.textContent=L.ok;fn.value=fe.value=ft.value=fm.value=""})
+.catch(function(e){st.style.color="#e5484d";st.textContent=L.nf+" ("+((e&&e.message)||e||"error")+")"}).then(function(){send.disabled=false})};
 setL(sl);
 var bg=document.getElementById("bg"),nv=document.getElementById("nav"),hd=document.getElementById("hd");
 bg.onclick=function(){var o=nv.classList.toggle("open");bg.setAttribute("aria-expanded",o)};
