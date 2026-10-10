@@ -217,14 +217,15 @@ document.querySelectorAll("[data-t]").forEach(function(e){e.textContent=T[l][e.d
 document.querySelectorAll("[data-p]").forEach(function(e){e.placeholder=T[l][e.dataset.p];e.setAttribute("aria-label",e.placeholder)});
 document.querySelectorAll(".lang button").forEach(function(b){b.classList.toggle("on",b.dataset.l===l)})}
 document.querySelectorAll(".lang button").forEach(function(b){b.onclick=function(){setL(b.dataset.l)}});
-var FORM_ENDPOINT=""; /* plak hier uw Formspree-URL, bv. https://formspree.io/f/xxxx */
+var WEB3FORMS_KEY="ee97793f-1dd2-4a54-8161-26dcc406f2bf"; /* plak hier uw Web3Forms Access Key (web3forms.com) */
 document.getElementById("send").onclick=function(){var L=T[document.documentElement.lang];
 if(!fn.value.trim()||!/\S+@\S+\.\S+/.test(fe.value)||!fm.value.trim()){st.style.color="#e5484d";st.textContent=L.er;return}
 if(hp.value)return;
-if(!FORM_ENDPOINT){location.href="mailto:info@novacleaning.be?subject="+encodeURIComponent("Offerte aanvraag")+"&body="+encodeURIComponent(fm.value+"\n\n"+fn.value+" ("+fe.value+")"+(ft.value.trim()?"\nTel: "+ft.value.trim():""));return}
+if(!WEB3FORMS_KEY){location.href="mailto:info@novacleaning.be?subject="+encodeURIComponent("Offerte aanvraag")+"&body="+encodeURIComponent(fm.value+"\n\n"+fn.value+" ("+fe.value+")"+(ft.value.trim()?"\nTel: "+ft.value.trim():""));return}
 send.disabled=true;st.style.color="var(--mu)";st.textContent=L.sg;
-fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({name:fn.value,email:fe.value,phone:ft.value,message:fm.value})})
-.then(function(r){if(!r.ok)throw 0;st.style.color="var(--g)";st.textContent=L.ok;fn.value=fe.value=ft.value=fm.value=""})
+fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:"Nieuwe offerteaanvraag via NOVA Cleaning website",from_name:"NOVA Cleaning website",name:fn.value,email:fe.value,phone:ft.value,message:fm.value})})
+.then(function(r){return r.json()})
+.then(function(d){if(!d.success)throw 0;st.style.color="var(--g)";st.textContent=L.ok;fn.value=fe.value=ft.value=fm.value=""})
 .catch(function(){st.style.color="#e5484d";st.textContent=L.nf}).then(function(){send.disabled=false})};
 setL(sl);
 var bg=document.getElementById("bg"),nv=document.getElementById("nav"),hd=document.getElementById("hd");
