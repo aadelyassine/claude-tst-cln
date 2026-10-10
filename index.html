@@ -221,7 +221,7 @@ var WEB3FORMS_KEY="ee97793f-1dd2-4a54-8161-26dcc406f2bf"; /* plak hier uw Web3Fo
 document.getElementById("send").onclick=function(){var L=T[document.documentElement.lang];
 if(!fn.value.trim()||!/\S+@\S+\.\S+/.test(fe.value)||!fm.value.trim()){st.style.color="#e5484d";st.textContent=L.er;return}
 if(hp.value)return;
-if(!WEB3FORMS_KEY){location.href="mailto:info@novacleaning.be?subject="+encodeURIComponent("Offerte aanvraag")+"&body="+encodeURIComponent(fm.value+"\n\n"+fn.value+" ("+fe.value+")"+(ft.value.trim()?"\nTel: "+ft.value.trim():""));return}
+if(!WEB3FORMS_KEY){st.style.color="#e5484d";st.textContent=L.nf;return}
 send.disabled=true;st.style.color="var(--mu)";st.textContent=L.sg;
 fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:"Nieuwe offerteaanvraag via NOVA Cleaning website",from_name:"NOVA Cleaning website",name:fn.value,email:fe.value,phone:ft.value,message:fm.value})})
 .then(function(r){return r.json()})
